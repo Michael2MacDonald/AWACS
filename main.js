@@ -109,4 +109,16 @@ function helpCommand(arguments, receivedMessage) {
   receivedMessage.channel.send(helpEmbed);
 }
 
+function pingCommand(arguments, receivedMessage) {
+  var embed = new Discord.MessageEmbed()
+    .setTitle('Retrieving your pong...')
+    .setColor('#577a9a')
+    .setTimestamp(new Date());
+    //.setFooter(client.footer, icon)
+  receivedMessage.channel.send(embed).then(m => {
+    embed.setTitle(`🏓 Pong! Round-trip latency is ${m.createdTimestamp - receivedMessage.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms.`);
+    m.edit(embed);
+  })
+}
+
 client.login(config.token);
